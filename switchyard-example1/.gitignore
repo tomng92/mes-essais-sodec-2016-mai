@@ -1,0 +1,15 @@
+# Sources compilées
+target
+.tern-project
+
+# Configuration eclipse
+.settings
+
+# Fichier générés par Maven
+.classpath
+
+# Archives Java 
+*.war
+
+# switchyard
+.xml
