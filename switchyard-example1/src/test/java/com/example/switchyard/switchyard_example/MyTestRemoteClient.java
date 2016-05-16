@@ -10,6 +10,9 @@ import org.switchyard.remote.http.HttpInvoker;
  * See Gary Liu's article.
  * http://ggl-consulting.blogspot.ca/2015/05/jboss-fsw-development-tutorial.html
  * 
+ * Note: this does not work!!!
+ * See Test1Bean
+ * 
  * @author tnguyen Mai 13 2016
  *
  */
