@@ -2,7 +2,11 @@ package com.sodec.main;
 
 import java.util.List;
 
+import javax.enterprise.context.spi.CreationalContext;
 import javax.enterprise.event.Observes;
+import javax.enterprise.inject.spi.Bean;
+import javax.enterprise.inject.spi.BeanManager;
+import javax.enterprise.inject.spi.CDI;
 import javax.inject.Inject;
 
 import org.jboss.weld.environment.se.Weld;
@@ -32,19 +36,32 @@ public class Main {
 		Weld weld = new Weld();
 
 		try (WeldContainer container = weld.initialize()) {
-
-			Main myMain = new Main();
-			// main.journal.info("Hello!");
 			
-			while (myMain.journal == null) {
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException ex) {
-					System.out.print('.');
-				}
-			}
+//			try {
+//				Thread.sleep(30);
+//			} catch (InterruptedException ex) {
+//				System.out.print('.');
+//			}
+//				
+			BeanManager bm = CDI.current().getBeanManager();
+			
+			Bean<?> bean = bm.getBeans(Main.class).iterator().next();
+			CreationalContext<?> ctx = bm.createCreationalContext(bean);
+			Main main = (Main) bm.getReference(bean, Main.class, ctx);
+			main.journal.warn("Hi!! I exist! nouw");
 
-			myMain.journal.info("Fin du programme!");
+//			Main myMain = new Main();
+//			// main.journal.info("Hello!");
+//			
+//			while (myMain.journal == null) {
+//				try {
+//					Thread.sleep(100);
+//				} catch (InterruptedException ex) {
+//					System.out.print('.');
+//				}
+//			}
+//
+//			myMain.journal.info("Fin du programme!");
 
 			//container.shutdown();
 		}
