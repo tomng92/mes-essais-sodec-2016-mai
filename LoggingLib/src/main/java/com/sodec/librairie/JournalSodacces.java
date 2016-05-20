@@ -1,29 +1,65 @@
 package com.sodec.librairie;
 
 
+import java.util.Hashtable;
+import java.util.Map;
+
 import javax.enterprise.inject.spi.InjectionPoint;
 
 import org.jboss.weld.exceptions.UnsupportedOperationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.slf4j.Marker;
 
+/**
+ * Classe de journalisation
+ * @author tnguyen
+ *
+ */
 public class JournalSodacces implements Logger {
 	
 	private Logger logger;
+	private Map<Object, Object> contexte;
 	
 	/**
 	 * Constructeur.
 	 * @param point
 	 */
 	public JournalSodacces(InjectionPoint point) {
-		Class clazz = point.getMember().getDeclaringClass();
+		Class<?> clazz = point.getMember().getDeclaringClass();
 		logger = LoggerFactory.getLogger(clazz);
+		contexte = new Hashtable<Object, Object>();
 	}
 	
 	
-	public void startMonitor(String nomEvenement) {
-		
+	/**
+	 * Ajouter une valeur dans le contexte.
+	 * Quand le journal est imprimé, si l'objet est un JournalRender, la fonction render() sera utilisée, sinon c'est toString().
+	 * @param key
+	 * @param value
+	 */
+	public void putContext(Object key, Object value) {
+		this.contexte.put(key, value);
+	}
+	
+	public void removeContext(Object key) {
+		this.contexte.remove(key);
+	}
+	
+	public void clearContext(Object key, Object value) {
+		this.contexte.clear();
+	}
+	
+	/**
+	 * Injecte le contexte dans le MDC.
+	 * @param renderer
+	 */	
+	void injecteContexte(ContexteRenderer renderer) {
+		Map<String, String> map = renderer.getRenderMap();
+		for (String key: map.keySet()) {
+			MDC.put(key, map.get(key));
+		}
 	}
 	
 	/** 

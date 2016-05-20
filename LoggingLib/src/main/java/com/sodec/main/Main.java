@@ -21,11 +21,10 @@ import com.sodec.librairie.JournalisationInfo;
  *
  */
 public class Main {
-
 	// @JournalisationInfo(domaine = JournalisationDomaine.NON_SPECIFIE)
 
 	@Inject
-	@JournalisationInfo(domaine=JournalisationDomaine.NSE)
+	@JournalisationInfo(domaine=JournalisationDomaine.CAMEL)
 	Logger journal;
 
 	public static void main(String[] args) {
@@ -54,6 +53,7 @@ public class Main {
 	public void bootListener(@Observes ContainerInitialized event, @Parameters List<String> cmdLineArgs) {
 		if (cmdLineArgs.isEmpty()) {
 			journal.error("ContainerInitialized !! I am invoked with no args!!!");
+			journal.warn("Type d'opération inconnu: " + "listePersonneParNom");
 		} else {
 			journal.error("ContainerInitialized !! With args!!!" + cmdLineArgs.get(0));
 		}

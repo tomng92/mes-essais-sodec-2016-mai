@@ -11,5 +11,6 @@ public enum JournalisationDomaine {
 	EJB,
 	UTIL,
 	ESB,
-	CAMEL
+	CAMEL,
+	SECURE
 }
