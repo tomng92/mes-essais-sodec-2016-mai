@@ -7,12 +7,11 @@ import java.lang.annotation.Target;
 
 /**
  * Information 
- * @author tnguyen
+ * @author tnguyen; 20 mai 2016
  *
  */
 @Target({ElementType.TYPE, ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-
 public @interface JournalisationInfo {
    JournalisationDomaine domaine();
    String version() default "0.0";

@@ -1,9 +1,13 @@
 package com.sodec.librairie;
 
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedElement;
 import java.util.Hashtable;
 import java.util.Map;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.spi.Annotated;
 import javax.enterprise.inject.spi.InjectionPoint;
 
 import org.jboss.weld.exceptions.UnsupportedOperationException;
@@ -11,6 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.slf4j.Marker;
+
+import com.sodec.annotations.FileInfo;
 
 /**
  * Classe de journalisation
@@ -30,8 +36,32 @@ public class JournalSodacces implements Logger {
 		Class<?> clazz = point.getMember().getDeclaringClass();
 		logger = LoggerFactory.getLogger(clazz);
 		contexte = new Hashtable<Object, Object>();
+		
+		// Voir https://martinsdeveloperworld.wordpress.com/2014/02/23/injecting-configuration-values-using-cdis-injectionpoint/.
+		Annotated annotated = point.getAnnotated();
+		JournalisationInfo jinfo = annotated.getAnnotation(JournalisationInfo.class);
+		System.out.println("jinfo. domaine = " + jinfo.domaine());
+		
+		//readAnnotationOn(clazz);
 	}
 	
+	static void readAnnotationOn(AnnotatedElement element) {
+		try {
+			System.out.println("\n Finding annotations on " + element.getClass().getName());
+			System.out.println("\n Finding annotations on " + element.toString());
+			Annotation[] annotations = element.getAnnotations();
+			for (Annotation annotation : annotations) {
+				if (annotation instanceof FileInfo) {
+					FileInfo fileInfo = (FileInfo) annotation;
+					System.out.println("Author :" + fileInfo.author());
+					System.out.println("Version :" + fileInfo.version());
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	
 	/**
 	 * Ajouter une valeur dans le contexte.
