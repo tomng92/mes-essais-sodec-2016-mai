@@ -22,6 +22,7 @@ public class FileInfoConsumer {
 		try {
 			System.out.println("\n Finding annotations on " + element.getClass().getName());
 			System.out.println("\n Finding annotations on " + element.toString());
+			
 			Annotation[] annotations = element.getAnnotations();
 			for (Annotation annotation : annotations) {
 				if (annotation instanceof FileInfo) {

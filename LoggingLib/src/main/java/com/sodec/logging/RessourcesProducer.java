@@ -23,6 +23,8 @@ import javax.inject.Singleton;
  * des ressources Java EE, tels que le contexte de persistance, dans des
  * composants logiciels JavaBeans.
  * 
+ * Cette classe est 'découverte' par le scanning de Weld.
+ * 
  * <p>
  * Exemple d'injection dans le champ d'un composant logiciel JavaBeans:
  * </p>

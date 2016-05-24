@@ -25,46 +25,27 @@ import com.sodec.librairie.JournalisationInfo;
  *
  */
 public class Main {
-	// @JournalisationInfo(domaine = JournalisationDomaine.NON_SPECIFIE)
 
 	@Inject
-	@JournalisationInfo(domaine=JournalisationDomaine.CAMEL)
+	@JournalisationInfo(domaine = JournalisationDomaine.SECURE)
 	Logger journal;
 
 	public static void main(String[] args) {
 
 		Weld weld = new Weld();
 
-		try (WeldContainer container = weld.initialize()) {
+		/**WeldContainer container = */
+		weld.initialize();
 			
-//			try {
-//				Thread.sleep(30);
-//			} catch (InterruptedException ex) {
-//				System.out.print('.');
-//			}
-//				
-			BeanManager bm = CDI.current().getBeanManager();
-			
-			Bean<?> bean = bm.getBeans(Main.class).iterator().next();
-			CreationalContext<?> ctx = bm.createCreationalContext(bean);
-			Main main = (Main) bm.getReference(bean, Main.class, ctx);
-			main.journal.warn("Hi!! I exist! nouw");
-
-//			Main myMain = new Main();
-//			// main.journal.info("Hello!");
-//			
-//			while (myMain.journal == null) {
-//				try {
-//					Thread.sleep(100);
-//				} catch (InterruptedException ex) {
-//					System.out.print('.');
-//				}
-//			}
-//
-//			myMain.journal.info("Fin du programme!");
-
-			//container.shutdown();
-		}
+		// Instantiation de notre classe.
+		BeanManager bm = CDI.current().getBeanManager();
+		
+		Bean<?> bean = bm.getBeans(Main.class).iterator().next();
+		CreationalContext<?> ctx = bm.createCreationalContext(bean);
+		Main main = (Main) bm.getReference(bean, Main.class, ctx);
+		main.journal.warn("Bonjour! J'existe maintenant!!");
+		
+		weld.shutdown();
 	}
 
 	public void bootListener(@Observes ContainerInitialized event, @Parameters List<String> cmdLineArgs) {
