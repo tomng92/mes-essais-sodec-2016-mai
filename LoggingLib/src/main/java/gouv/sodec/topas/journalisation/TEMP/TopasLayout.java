@@ -5,7 +5,7 @@
  * des compostantes du système Sodacces.
  */
 
-package gouv.sodec.topas.journalisation;
+package gouv.sodec.topas.journalisation.TEMP;
 
 import org.apache.log4j.Layout;
 import org.apache.log4j.spi.LoggingEvent;

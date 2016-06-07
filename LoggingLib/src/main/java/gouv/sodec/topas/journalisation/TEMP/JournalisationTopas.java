@@ -5,11 +5,11 @@
  * des compostantes du système Sodacces.
  */
 
-package gouv.sodec.topas.journalisation;
+package gouv.sodec.topas.journalisation.TEMP;
 
 import org.slf4j.Logger;
 
-public interface JournalisationTopas extends Logger {
+public interface JournalisationTopas {
 
 	/**
 	 * Ajouter un contexte de traitement au MDC.
