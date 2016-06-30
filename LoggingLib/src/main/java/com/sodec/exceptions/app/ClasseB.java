@@ -7,12 +7,12 @@
 
 package com.sodec.exceptions.app;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.sodec.exceptions.ExceptionTopas;
-import com.sodec.exceptions.InfoException;
+import com.sodec.exceptions.ExceptionTopasAbstrait;
 
 /**
  * http://tutorials.jenkov.com/java-exception-handling/fail-safe-exception-handling.html
@@ -21,23 +21,33 @@ import com.sodec.exceptions.InfoException;
  *
  */
 public class ClasseB {
-	public void faitB(String nomFichier) throws ExceptionTopas {
+	public void faitB(String nomFichier) throws ExceptionTopasAbstrait {
 		
 		InputStream input = null;
 
 		try {
-
-			input = new FileInputStream("myFile.txt");
-
+			
+			File file = new File(nomFichier);
 			// do something with the stream
+			if (!file.exists()) {
+				ExceptionTopasAbstrait exc = new ExceptionTopasAbstrait();
+				exc.addInfo(1, 1, "fichier " + nomFichier + " non existant " , "n/a");
+				throw exc;
+			}
+
+			input = new FileInputStream(nomFichier);
+
 
 		} catch (IOException e) {
 			throw createExcTopas(e);
 		} finally {
-			try {
-				input.close();
-			} catch (IOException e) {
-				throw createExcTopas(e);
+			
+			if (input != null) {
+				try {
+					input.close();
+				} catch (IOException e) {
+					throw createExcTopas(e);
+				}
 			}
 		}
 	}
@@ -46,15 +56,8 @@ public class ClasseB {
 	 * @param e
 	 * @return
 	 */
-	private ExceptionTopas createExcTopas(IOException e) {
-		ExceptionTopas exc = new ExceptionTopas();
-		InfoException info = new InfoException();
-
-		// enrichier info ici
-		// ...
-		
-		exc.addInfo(info);
-		
+	private ExceptionTopasAbstrait createExcTopas(IOException cause) {
+		ExceptionTopasAbstrait exc = new ExceptionTopasAbstrait(cause);
 		return exc;
 	}
 

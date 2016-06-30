@@ -15,6 +15,8 @@ import org.jboss.weld.environment.se.bindings.Parameters;
 import org.jboss.weld.environment.se.events.ContainerInitialized;
 import org.slf4j.Logger;
 
+import com.sodec.exceptions.ExceptionTopasAbstrait;
+import com.sodec.exceptions.app.MonService;
 import com.sodec.librairie.JournalisationDomaine;
 import com.sodec.librairie.JournalisationInfo;
 
@@ -25,6 +27,9 @@ import com.sodec.librairie.JournalisationInfo;
  *
  */
 public class Main {
+	
+	@Inject
+	MonService monSvc;
 
 	@Inject
 	@JournalisationInfo(domaine = JournalisationDomaine.SECURE)
@@ -48,7 +53,21 @@ public class Main {
 		Main main = (Main) bm.getReference(bean, Main.class, ctx);
 		main.journal.warn("Bonjour! J'existe maintenant!!");
 		
+		main.invokeService();
+		
 		weld.shutdown();
+	}
+
+	/**
+	 * 
+	 */
+	private void invokeService() {
+		
+		try {
+			monSvc.executeMonService();
+		} catch (ExceptionTopasAbstrait excTopas) {
+			journal.error(excTopas.toString());
+		}
 	}
 
 	/**
@@ -59,7 +78,7 @@ public class Main {
 	public void bootListener(@Observes ContainerInitialized event, @Parameters List<String> cmdLineArgs) {
 		if (cmdLineArgs.isEmpty()) {
 			journal.error("ContainerInitialized !! I am invoked with no args!!!");
-			journal.warn("Type d'opération inconnu: " + "listePersonneParNom");
+			//journal.warn("Type d'opération inconnu: " + "listePersonneParNom");
 		} else {
 			journal.error("ContainerInitialized !! With args!!!" + cmdLineArgs.get(0));
 		}

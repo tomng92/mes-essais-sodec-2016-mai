@@ -7,7 +7,7 @@
 
 package com.sodec.exceptions.app;
 
-import com.sodec.exceptions.ExceptionTopas;
+import com.sodec.exceptions.ExceptionTopasAbstrait;
 
 /**
  * Voir article de Rich Hightower: https://dzone.com/articles/cdi-aop.
@@ -17,9 +17,9 @@ import com.sodec.exceptions.ExceptionTopas;
  */
 public class MonService {
 	
-	public void executeMonService() throws ExceptionTopas {
+	public void executeMonService() throws ExceptionTopasAbstrait {
 		ClasseA a = new ClasseA();
-		a.faitA(null);
+		a.faitA("Bla");
 	}
 
 }

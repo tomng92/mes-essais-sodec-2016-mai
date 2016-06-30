@@ -10,6 +10,9 @@ package com.sodec.exceptions;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 /**
  * Voir http://tutorials.jenkov.com/exception-handling-strategies/template-exception.html.
  * 
@@ -19,16 +22,36 @@ import java.util.Map;
  */
 public class InfoException {
 	//protected Throwable cause = null;
+	protected int typeErreur = -1;
+	protected int severite = -1;
 	protected String idErreur = null;
 	protected String idContexte = null;
 
-	protected int typeErreur = -1;
-	protected int severite = -1;
+	
+	public InfoException(int typeErreur, int severite, String idErreur, String idContexte) {
+		this.typeErreur = typeErreur;
+		this.severite = severite;
+		this.idErreur = idErreur;
+		this.idContexte = idContexte;
+		
+	}
 
 	protected String userErrorDescription = null;
 	protected String errorDescription = null;
-	protected String errorCorrection = null;
+	//protected String errorCorrection = null;
 
 	protected Map<String, Object> parameters = new HashMap<String, Object>();
+	
+	  @Override
+	  public String toString() {
+	     return "InfoException " + new ToStringBuilder(this, ToStringStyle.JSON_STYLE).
+			   append("idErreur", this.idErreur).
+			   append("idContexte", this.idContexte).
+			   append("severite", this.severite).
+			   append("errorDescription", this.errorDescription).
+			   toString();
+	  }
+
+
 
 }

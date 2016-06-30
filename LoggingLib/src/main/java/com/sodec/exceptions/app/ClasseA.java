@@ -7,7 +7,7 @@
 
 package com.sodec.exceptions.app;
 
-import com.sodec.exceptions.ExceptionTopas;
+import com.sodec.exceptions.ExceptionTopasAbstrait;
 
 /**
  * @author tnguyen 2016-06-21
@@ -16,7 +16,7 @@ import com.sodec.exceptions.ExceptionTopas;
  */
 public class ClasseA {
 	
-	public void faitA(String nomFichier) throws ExceptionTopas {
+	public void faitA(String nomFichier) throws ExceptionTopasAbstrait {
 		
 		ClasseB b = new ClasseB();
 		
