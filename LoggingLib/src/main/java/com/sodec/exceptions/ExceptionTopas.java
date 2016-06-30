@@ -15,13 +15,16 @@ import java.util.Map;
  *
  */
 public interface ExceptionTopas {
+	/**
+	 * @return L'exception enveloppé, qui est la source originale de l'exception.
+	 */
 	Throwable getCause();
+	
 	CodeErreurTopas getCodeErreur();
 	String getMessage();
-	String getContexte();
-	int getSeverite();
 	
 	String getParam(String cle);
 	Map<String, String> getParams();
 	ExceptionTopas setParam(String cle, String valeur);
+	Exception getException();
 }

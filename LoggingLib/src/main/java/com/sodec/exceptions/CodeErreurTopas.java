@@ -8,29 +8,35 @@
 package com.sodec.exceptions;
 
 /**
+ * CodeErreurTopas est la liste des erreurs de Topas.
+ * À sous-classer (en enum) par les sous-systèmes, qui ajouteront leurs codes d'erreurs.
+ * Quelques exemples, ErreurAjoutEntite, ErreurSvcEntite..
+ * 
  * @author tnguyen 2016-06-29
  * @version 1.0
  *
  */
-public enum CodeErreurTopas {
+public interface CodeErreurTopas {
 	
-	ERRORCODE_A("AAA", 1),
-	ERRORCODE_B("BBB", 2);
+	/**
+	 * @return Le code numérique de l'erreur, par ex. 1037
+	 */
+	public int getCode();	
 	
-	public int getCodeErreur() {
-		return codeErreur;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	private final int codeErreur;
-	private final String id;
+	/**
+	 * @return  Le code de l'erreur utilisable pour affichage.
+	 */
+	public String getCodeAffichage();
 	
-	CodeErreurTopas(String id, int codeErreur) {
-		this.id = id;
-		this.codeErreur = codeErreur;
-	}
-
+	/**
+	 * @return La clé pour usage dans le resource bundle du message.
+	 */
+	public String getCleMsg();
+	
+	/**
+	 * @return Le préfixe du système, comme "NSE". Ce préfixe sert internement à composer le code pour
+	 *         affichage (ex. "NSE-1034"), et la clé de message (ex. "NSE-erreur-usager-non-trouve").
+	 */
+	public String getPrefix();
+	
 }

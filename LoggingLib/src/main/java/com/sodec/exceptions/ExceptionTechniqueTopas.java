@@ -17,30 +17,18 @@ import java.util.Map;
 public class ExceptionTechniqueTopas extends Exception implements ExceptionTopas {
 
 	
-	private ErrorCodeTopas 
+	private static final long serialVersionUID = 1L;
+	
+	private CodeErreurTopas codeErreur;
+
 	/* (non-Javadoc)
 	 * @see com.sodec.exceptions.ExceptionTopas#getErrorCode()
 	 */
 	@Override
-	public ErrorCodeTopas getErrorCode() {
-		return null;
+	public CodeErreurTopas getCodeErreur() {
+		return codeErreur;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.sodec.exceptions.ExceptionTopas#getContexte()
-	 */
-	@Override
-	public String getContexte() {
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see com.sodec.exceptions.ExceptionTopas#getSeverite()
-	 */
-	@Override
-	public int getSeverite() {
-		return 0;
-	}
 
 	/* (non-Javadoc)
 	 * @see com.sodec.exceptions.ExceptionTopas#getParam(java.lang.String)
@@ -64,6 +52,14 @@ public class ExceptionTechniqueTopas extends Exception implements ExceptionTopas
 	@Override
 	public ExceptionTopas setParam(String cle, String valeur) {
 		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.sodec.exceptions.ExceptionTopas#getException()
+	 */
+	@Override
+	public Exception getException() {
+		return (Exception) this;
 	}
 
 }
