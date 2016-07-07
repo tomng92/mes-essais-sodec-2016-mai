@@ -7,19 +7,28 @@
 
 package com.sodec.exceptions;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Exception de type runtime qui nveloppe une exception technique.
+ * Par exemple, erreur de codage, problème de resource manquant, de config, ou RuntimeExceptions.
+ *  
  * @author tnguyen 2016-06-29
- * @version 1.0
  *
  */
-public class ExceptionTechniqueTopas extends Exception implements ExceptionTopas {
+public class ExceptionTechniqueTopas extends RuntimeException implements ExceptionTopas {
 
 	
 	private static final long serialVersionUID = 1L;
 	
 	private CodeErreurTopas codeErreur;
+
+	public ExceptionTechniqueTopas(CodeErreurTopas codeErreur, String message, Throwable cause) {
+		super(message, cause);
+		this.codeErreur = codeErreur;
+		this.params = new HashMap<String, String>();
+	}
 
 	/* (non-Javadoc)
 	 * @see com.sodec.exceptions.ExceptionTopas#getErrorCode()
@@ -34,7 +43,7 @@ public class ExceptionTechniqueTopas extends Exception implements ExceptionTopas
 	 * @see com.sodec.exceptions.ExceptionTopas#getParam(java.lang.String)
 	 */
 	@Override
-	public String getParam(String cle) {
+	public String getValeurCtx(String cle) {
 		return null;
 	}
 
@@ -42,7 +51,7 @@ public class ExceptionTechniqueTopas extends Exception implements ExceptionTopas
 	 * @see com.sodec.exceptions.ExceptionTopas#getParams()
 	 */
 	@Override
-	public Map<String, String> getParams() {
+	public Map<String, String> getCtx() {
 		return null;
 	}
 
@@ -50,7 +59,7 @@ public class ExceptionTechniqueTopas extends Exception implements ExceptionTopas
 	 * @see com.sodec.exceptions.ExceptionTopas#setParam(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public ExceptionTopas setParam(String cle, String valeur) {
+	public ExceptionTopas setValeurCtx(String cle, String valeur) {
 		return null;
 	}
 

@@ -11,27 +11,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Exemple d'utilisation:
- * 
- *   try {
- *     invokeFunctionX();
- *   } catch (Exception ex) {
- *      
- *   }
+ * Exception dû à des erreurs connus du l'application ou composant.
+ * Par exemple, erreur de validation, paramètre d'entrée vide, etc.
  * @author tnguyen 2016-06-29
  * @version 1.0
  *
  */
-public class ExceptionAffaireTopas extends RuntimeException implements ExceptionTopas {
+public class ExceptionAffaireTopas extends Exception implements ExceptionTopas {
 
 	private static final long serialVersionUID = 1L;
 	private CodeErreurTopas codeErreur;
-	private Map<String, String> params;
+	private Map<String, String> ctxErr;
 	
 	public ExceptionAffaireTopas(CodeErreurTopas codeErreur, String message, Throwable cause) {
 		super(message, cause);
 		this.codeErreur = codeErreur;
-		this.params = new HashMap<String, String>();
+		this.ctxErr = new HashMap<String, String>();
 	}
 	
 	/* (non-Javadoc)
@@ -47,32 +42,32 @@ public class ExceptionAffaireTopas extends RuntimeException implements Exception
 	 * @see com.sodec.exceptions.ExceptionTopas#getParam(java.lang.String)
 	 */
 	@Override
-	public String getParam(String cle) {
-		return null;
+	public String getValeurCtx(String cle) {
+		return err;
 	}
 
 	/* (non-Javadoc)
 	 * @see com.sodec.exceptions.ExceptionTopas#getParams()
 	 */
 	@Override
-	public Map<String, String> getParams() {
-		return params;
+	public Map<String, String> getCtx() {
+		return ctxErr;
 	}
 
 	/* (non-Javadoc)
 	 * @see com.sodec.exceptions.ExceptionTopas#setParam(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public ExceptionTopas setParam(String cle, String valeur) {
-		this.params.put(cle, valeur);
+	public ExceptionTopas setValeurCtx(String cle, String valeur) {
+		this.ctxErr.put(cle, valeur);
 		return this;
 	}
 	
 	public static void main(String[] args) {
 		ExceptionTopas exct = new ExceptionAffaireTopas(CodeErreurNSE.ERREUR_USAGER_NON_TROUVE, "mon exception !", null)
-				.setParam("aaa", "1111")
-				.setParam("bbb", "2222")
-				.setParam("ccc", "3333");
+				.setValeurCtx("aaa", "1111")
+				.setValeurCtx("bbb", "2222")
+				.setValeurCtx("ccc", "3333");
 		
 		//exct.getException().initCause(new Exception("une exception"));
 	
@@ -81,7 +76,7 @@ public class ExceptionAffaireTopas extends RuntimeException implements Exception
 	
 	@Override
 	public String toString() {
-		return super.toString() + " " + this.getCodeErreur().toString() + " " + this.getParams().toString();
+		return super.toString() + " " + this.getCodeErreur().toString() + " " + this.getCtx().toString();
 	}
 
 	/* (non-Javadoc)

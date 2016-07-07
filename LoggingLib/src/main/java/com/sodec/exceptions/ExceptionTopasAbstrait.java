@@ -18,9 +18,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * Contient une liste d'exception info.
  * 
  * @author tnguyen 2016-06-21
+ * @deprecated Cet exception est en fait inutilisable! Utiliser directement  les exceptions Affaire et Technique.
  * @version 1.0
  */
-public class ExceptionTopasAbstrait extends Exception {
+public class ExceptionTopasAbstrait extends Exception { 
 	
 	private static final long serialVersionUID = 1L;
 

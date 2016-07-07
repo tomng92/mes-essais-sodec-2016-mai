@@ -19,8 +19,9 @@ public class ContexteTraitement {
 	private String id;
 	private Map<String, String> props;
 	
-	public void ajoutProp(String prop, String valeur) {
+	public ContexteTraitement ajoutProp(String prop, String valeur) {
 		this.props.put(prop, valeur);
+		return this;
 	}
 
 	/**
