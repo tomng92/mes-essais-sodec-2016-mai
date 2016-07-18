@@ -11,9 +11,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Exception de type runtime qui nveloppe une exception technique.
+ * 
+ * Exception de type runtime qui enveloppe une exception technique.
  * Par exemple, erreur de codage, problème de resource manquant, de config, ou RuntimeExceptions.
- *  
+ * 
+ * Une exception technique peut etre utilisée pour k
  * @author tnguyen 2016-06-29
  *
  */

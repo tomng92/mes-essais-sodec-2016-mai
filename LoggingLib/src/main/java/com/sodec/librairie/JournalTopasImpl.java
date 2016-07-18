@@ -23,7 +23,7 @@ import com.sodec.annotations.FileInfo;
  * @author tnguyen
  *
  */
-public class JournalSodacces implements Logger {
+public class JournalTopasImpl implements JournalTopas {
 	
 	private Logger logger;
 	private Map<Object, Object> contexte;
@@ -32,7 +32,7 @@ public class JournalSodacces implements Logger {
 	 * Constructeur.
 	 * @param point
 	 */
-	public JournalSodacces(InjectionPoint point) {
+	public JournalTopasImpl(InjectionPoint point) {
 		Class<?> clazz = point.getMember().getDeclaringClass();
 		logger = LoggerFactory.getLogger(clazz);
 		contexte = new Hashtable<Object, Object>();
@@ -45,6 +45,50 @@ public class JournalSodacces implements Logger {
 		//readAnnotationOn(clazz);
 	}
 	
+
+	
+	/**
+	 * Ajouter une valeur dans le contexte.
+	 * Quand le journal est imprimé, si l'objet est un JournalRender, la fonction render() sera utilisée, sinon c'est toString().
+	 * @param ctxId
+	 * @param key
+	 * @param value
+	 */
+	@Override
+	public void ajouterElementContexte(String key, Object value) {
+		this.contexte.put(key, value);
+	}
+	
+	@Override
+	public void supprimerElementContexte(String key) {
+		this.contexte.remove(key);
+	}
+	
+	@Override
+	public void effacerContexte() {
+		this.contexte.clear();
+	}
+	
+	/**
+	 * Injecte le contexte dans le MDC.
+	 * @param renderer
+	 */	
+	void injecteContexte(ContexteRenderer renderer) {
+		Map<String, String> map = renderer.getRenderMap();
+		for (String key: map.keySet()) {
+			MDC.put(key, map.get(key));
+		}
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.sodec.librairie.JournalTopas#ecrire(com.sodec.librairie.TypeEntreeJournal, java.lang.String, java.lang.Object[])
+	 */
+	@Override
+	public void ecrire(TypeEntreeJournal typeEntree, String format, Object... objects) {
+		// TODO Méthode de substitut auto-générée
+		
+	}	
+
 	static void readAnnotationOn(AnnotatedElement element) {
 		try {
 			System.out.println("\n Finding annotations on " + element.getClass().getName());
@@ -59,36 +103,6 @@ public class JournalSodacces implements Logger {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-	}
-
-	
-	/**
-	 * Ajouter une valeur dans le contexte.
-	 * Quand le journal est imprimé, si l'objet est un JournalRender, la fonction render() sera utilisée, sinon c'est toString().
-	 * @param key
-	 * @param value
-	 */
-	public void putContext(Object key, Object value) {
-		this.contexte.put(key, value);
-	}
-	
-	public void removeContext(Object key) {
-		this.contexte.remove(key);
-	}
-	
-	public void clearContext(Object key, Object value) {
-		this.contexte.clear();
-	}
-	
-	/**
-	 * Injecte le contexte dans le MDC.
-	 * @param renderer
-	 */	
-	void injecteContexte(ContexteRenderer renderer) {
-		Map<String, String> map = renderer.getRenderMap();
-		for (String key: map.keySet()) {
-			MDC.put(key, map.get(key));
 		}
 	}
 	
@@ -396,5 +410,6 @@ public class JournalSodacces implements Logger {
 
 	public void warn(Marker arg0, String arg1, Object arg2, Object arg3) {
 		throwNotImplemented();
-	}	
+	}
+
 }

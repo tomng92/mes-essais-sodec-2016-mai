@@ -11,6 +11,21 @@ import java.util.Map;
 
 /**
  * Interface des exceptions Topas
+ * Il y a 2 exceptions dérivées de ExceptionTopas:
+ *   - ExceptionAffaireTopas. Vous pouvez sous-classer ou utiliser cette exception telle quelle.
+ *       Vous pouvez utiliser cette classe ou un sous-classe dans votre interface contract 
+ *       (i.e. l'interface de votre composant).  
+ *       public class  
+ *   - ExceptionTechniqueTopas
+ *  
+ * Question:
+ * ==========
+ * Qu'est ce que la methode émettrice doit faire quand une condition d'erreur survient?
+ *   - Si c'est une erreur d'affaire : 
+ *       - émettre l'exception contractuelle 
+ *       - wrapper par une exception technique  
+ *  
+ *  
  * @author tnguyen 2016-06-29
  * @version 1.0
  *

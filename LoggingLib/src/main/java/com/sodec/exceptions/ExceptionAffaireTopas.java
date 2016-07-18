@@ -43,7 +43,7 @@ public class ExceptionAffaireTopas extends Exception implements ExceptionTopas {
 	 */
 	@Override
 	public String getValeurCtx(String cle) {
-		return err;
+		return ctxErr.get(cle);
 	}
 
 	/* (non-Javadoc)
@@ -86,5 +86,4 @@ public class ExceptionAffaireTopas extends Exception implements ExceptionTopas {
 	public Exception getException() {
 		return (Exception) this;
 	}
-
 }

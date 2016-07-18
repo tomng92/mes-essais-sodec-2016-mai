@@ -12,7 +12,7 @@
  */
 package com.sodec.logging;
 
-import com.sodec.librairie.JournalSodacces;
+import com.sodec.librairie.JournalTopasImpl;
 
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
@@ -33,7 +33,7 @@ import javax.inject.Singleton;
 public class RessourcesProducer {
 
 	@Produces
-	public JournalSodacces produireJournal(InjectionPoint pointInjection) {
-		return new JournalSodacces(pointInjection);
+	public JournalTopasImpl produireJournal(InjectionPoint pointInjection) {
+		return new JournalTopasImpl(pointInjection);
 	}
 }

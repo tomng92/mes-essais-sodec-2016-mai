@@ -12,7 +12,7 @@
  */
 package gouv.sodec.topas.journalisation.TEMP;
 
-import com.sodec.librairie.JournalSodacces;
+import com.sodec.librairie.JournalTopasImpl;
 
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
