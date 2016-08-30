@@ -5,7 +5,7 @@
  * des compostantes du système Sodacces.
  */
 
-package com.sodec.exceptions;
+package com.utilitaire.exceptions;
 
 /**
  * CodeErreur est la liste des erreurs de Topas.
@@ -16,18 +16,15 @@ package com.sodec.exceptions;
  */
 public enum CodeErreurNSE implements CodeErreurTopas {
 	
-	OK(true, 0, "aucun erreur"),
-	ERREUR_USAGER_NON_TROUVE(false, 1, "erreur-usager-non-trouve"),
-	ERREUR_OPERATION_NON_VALIDE(false, 2, "erreur-operation-non-valide");
+	ERREUR_USAGER_NON_TROUVE(1, "erreur-usager-non-trouve"),
+	ERREUR_OPERATION_NON_VALIDE(2, "erreur-operation-non-valide");
 	
 	private final int code; // code de l"erreur
 	private final String cle; // clé dans resource bundle, ex "erreur-usager-non-trouve". La clé utilise le préfixe, "NSE-erreur-usager-non-trouve"
-	private final boolean ok;
 	
-	private CodeErreurNSE(boolean isOk, int code, String cle)  {
+	private CodeErreurNSE(int code, String cle)  {
 		this.code = code;
 		this.cle = cle;
-		this.ok = isOk;
 	}
 
 	/* (non-Javadoc)
@@ -69,13 +66,5 @@ public enum CodeErreurNSE implements CodeErreurTopas {
 	@Override
 	public String toString() {
 		return "CodeErreurNSE[code=" + this.code + ", cleMsg=" + getCleMsg() + "]"; 
-	}
-
-	/* (non-Javadoc)
-	 * @see com.sodec.exceptions.CodeErreurTopas#estOk()
-	 */
-	@Override
-	public boolean estOk() {
-		return ok;
 	}
 }

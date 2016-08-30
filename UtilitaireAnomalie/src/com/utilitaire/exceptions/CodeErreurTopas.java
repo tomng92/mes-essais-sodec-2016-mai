@@ -5,7 +5,7 @@
  * des compostantes du système Sodacces.
  */
 
-package com.sodec.exceptions;
+package com.utilitaire.exceptions;
 
 /**
  * CodeErreurTopas est la liste des erreurs de Topas.
@@ -17,8 +17,6 @@ package com.sodec.exceptions;
  *
  */
 public interface CodeErreurTopas {
-	
-	public boolean estOk();
 	
 	/**
 	 * @return Le code numérique de l'erreur, par ex. 1037

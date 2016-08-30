@@ -1,0 +1,19 @@
+
+
+
+Startegies
+==============
+Si Affaire
+-----------
+ - Le lanceur de exception comprend la raison (c'est pourquoi il le lance).
+   Donc il cree exception, le lance.
+ 
+ - Propagation de exc jusque a la barriere qui le journalise
+   et le convertit au retour contractuel 
+   
+ - affichage de la page 
+   
+Si technique
+--------------
+
+  Si 

@@ -1,0 +1,46 @@
+
+
+Could not find:
+[INFO] ------------------------------------------------------------------------
+[ERROR] Could not find artifact 
+
+org.glassfish:javax.el-impl:jar:3.0.1-b08-jbossorg-1 in nexus (http://srv-oss-dev:8081/nexus/repository/maven-public/) 
+
+===========================================================
+
+Ce jar est reellement dans:
+https://repository.jboss.org/org/glassfish/javax.el-impl/3.0.1-b08-jbossorg-1/
+    javax.el-impl-3.0.1-b08-jbossorg-1.jar
+
+
+===========================================================
+https://wildfly-swarm.gitbooks.io/wildfly-swarm-users-guide/content/first-steps/writing_code.html
+===========================================================
+WildFly SwarmSWARM-549
+Creating project from generator cannot compile as JARs cannot download:
+
+You need to add some jboss repo to the pom.xml file to make this work.
+ 
+    <repositories>
+        <repository>
+            <id>jboss-public-repository-group</id>
+            <name>JBoss Public Repository Group</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+    ==================================================
+
+    
+Concepts
+==================
+Repository
+Profile
+Mirror
