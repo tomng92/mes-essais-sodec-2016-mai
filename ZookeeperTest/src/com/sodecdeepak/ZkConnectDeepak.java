@@ -7,12 +7,6 @@
 
 package com.sodecdeepak;
 
-/**
- * @author tnguyen 2016-08-29
- * @version 1.0
- *
- */
-
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -24,10 +18,7 @@ import org.apache.zookeeper.Watcher.Event.KeeperState;
 import org.apache.zookeeper.ZooDefs.Ids;
 import org.apache.zookeeper.ZooKeeper;
 
-import com.sodec.getDataExample.ZKConnection;
-
-
-public class DeepakReader {
+public class ZkConnectDeepak {
     private ZooKeeper zk;
     private CountDownLatch connSignal = new CountDownLatch(0);
 
@@ -63,32 +54,5 @@ public class DeepakReader {
         zk.delete(path,  zk.exists(path, true).getVersion());
     }
 
-    public static void main (String args[]) throws Exception
-    {
-        ZKConnection connector = new ZKConnection();
-        ZooKeeper zk = connector.connect("54.169.132.0,52.74.51.0");
-        String newNode = "/deepakDate"+new Date();
-        connector.createNode(newNode, new Date().toString().getBytes());
-        List<String> zNodes = zk.getChildren("/", true);
-        for (String zNode: zNodes)
-        {
-           System.out.println("ChildrenNode " + zNode);   
-        }
-        byte[] data = zk.getData(newNode, true, zk.exists(newNode, true));
-        System.out.println("GetData before setting");
-        for ( byte dataPoint : data)
-        {
-            System.out.print ((char)dataPoint);
-        }
-
-        System.out.println("GetData after setting");
-        connector.updateNode(newNode, "Modified data".getBytes());
-        data = zk.getData(newNode, true, zk.exists(newNode, true));
-        for ( byte dataPoint : data)
-        {
-            System.out.print ((char)dataPoint);
-        }
-        connector.deleteNode(newNode);
-    }
 
 }

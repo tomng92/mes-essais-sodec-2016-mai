@@ -1,0 +1,21 @@
+
+	...
+	zk = new ZooKeeper("srv-bpm-dev:2181", 3000); // timeout dans 3secs			
+	zk.exists("/configuration/journalisation", true, this, null); // surveillance asynchrone
+	...
+	
+	/**
+	 * Fonction de surveillance asynchrone 
+	 */
+	public void processResult(int rc, String path, Object ctx, Stat stat) {
+	
+		// Relire config si les données sont changées
+		if (rc == Zookeeper.EventType.DataNodeChanged) {
+			String nodeData = zk.getData(path, false, null);
+ 			relireConfiguration(nodeData);
+		}
+	}
+	
+	
+	
+	

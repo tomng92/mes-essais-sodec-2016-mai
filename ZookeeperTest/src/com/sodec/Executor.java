@@ -52,6 +52,18 @@ public class Executor
 
     Process child;
 
+    /**
+     * Arguments:
+     * 
+     * 		srv-bpm-dev:2181  /TestExecutor TestExecutor.out notepad
+     * 
+     * @param hostPort
+     * @param znode
+     * @param filename
+     * @param exec
+     * @throws KeeperException
+     * @throws IOException
+     */
     public Executor(String hostPort, String znode, String filename,
             String exec[]) throws KeeperException, IOException {
         this.filename = filename;
@@ -65,8 +77,8 @@ public class Executor
      */
     public static void main(String[] args) {
         if (args.length < 4) {
-            System.err
-                    .println("USAGE: Executor hostPort znode filename program [args ...]");
+        	// srv-bpm-dev:2181  /TestExecutor TestExecutor.out notepad
+            System.err.println("USAGE: Executor hostPort znode filename program [args ...]");
             System.exit(2);
         }
         String hostPort = args[0];
